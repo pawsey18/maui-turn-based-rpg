@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:viewmodels="clr-namespace:EarthboundBattle.ViewModels"
+             x:Class="EarthboundBattle.Views.BattlePage"
+             BackgroundColor="#121212"
+             Title="EarthBound Desktop Battle">
+
+    <Grid RowDefinitions="*, Auto, Auto" Padding="25" RowSpacing="20">
+
+        <!-- TOP / ENEMY DISPLAY AREA -->
+        <VerticalStackLayout Grid.Row="0" VerticalOptions="Center" HorizontalOptions="Center" Spacing="10">
+            <Label Text="{Binding EnemyName}" 
+                   TextColor="#FFD700" 
+                   FontSize="28" 
+                   FontAttributes="Bold" 
+                   HorizontalTextAlignment="Center"/>
+            <Label Text="{Binding EnemyHp, StringFormat='HP: {0}'}" 
+                   TextColor="White" 
+                   FontSize="18" 
+                   HorizontalTextAlignment="Center"/>
+        </VerticalStackLayout>
+
+        <!-- MIDDLE / RETRO DIALOGUE & STATUS BOX -->
+        <Border Grid.Row="1" 
+                BackgroundColor="#0000AA" 
+                Stroke="#FFFFFF" 
+                StrokeThickness="4" 
+                Padding="20"
+                HeightRequest="140">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="6"/>
+            </Border.StrokeShape>
+            <Label Text="{Binding StatusMessage}" 
+                   TextColor="White" 
+                   FontSize="20" 
+                   FontFamily="Courier New"
+                   VerticalTextAlignment="Center"/>
+        </Border>
+
+        <!-- BOTTOM / PARTY STATS & ACTION CONTROLS -->
+        <Grid Grid.Row="2" ColumnDefinitions="*, *" ColumnSpacing="20">
+
+            <!-- Hero Stats Box -->
+            <Border Grid.Column="0" BackgroundColor="#222222" Stroke="#444444" StrokeThickness="2" Padding="15">
+                <VerticalStackLayout Spacing="5">
+                    <Label Text="{Binding HeroName}" TextColor="#00FFFF" FontSize="20" FontAttributes="Bold"/>
+                    <Label Text="{Binding HeroHp, StringFormat='HP: {0} / 120'}" TextColor="White" FontSize="16"/>
+                    <Label Text="{Binding HeroPp, StringFormat='PP: {0} / 35'}" TextColor="#FF69B4" FontSize="16"/>
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Action Buttons -->
+            <VerticalStackLayout Grid.Column="1" Spacing="10" VerticalOptions="Center">
+                <Button Text="BASH" 
+                        Command="{Binding AttackCommand}" 
+                        BackgroundColor="#CC0000" 
+                        TextColor="White" 
+                        FontAttributes="Bold"/>
+                <Button Text="PSI (PK Rockin)" 
+                        Command="{Binding PsiCommand}" 
+                        BackgroundColor="#0000CC" 
+                        TextColor="White" 
+                        FontAttributes="Bold"/>
+                <Button Text="RESTART BATTLE" 
+                        Command="{Binding ResetBattleCommand}" 
+                        BackgroundColor="#444444" 
+                        TextColor="White" 
+                        IsVisible="{Binding IsBattleOver}"/>
+            </VerticalStackLayout>
+
+        </Grid>
+
+    </Grid>
+</ContentPage>
